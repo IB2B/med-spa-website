@@ -1,0 +1,70 @@
+// Country dialling codes for the phone field on the booking page.
+// Names are not stored: the page shows them in the visitor's language with Intl.DisplayNames.
+import type { Locale } from "@/i18n/config"
+
+export type Country = { code: string; dial: string }
+
+// Europe first (our main market), then the rest of the world. Add more as needed.
+export const countries: Country[] = [
+  { code: "IT", dial: "+39" },
+  { code: "FR", dial: "+33" },
+  { code: "GB", dial: "+44" },
+  { code: "DE", dial: "+49" },
+  { code: "ES", dial: "+34" },
+  { code: "PT", dial: "+351" },
+  { code: "CH", dial: "+41" },
+  { code: "BE", dial: "+32" },
+  { code: "NL", dial: "+31" },
+  { code: "LU", dial: "+352" },
+  { code: "AT", dial: "+43" },
+  { code: "IE", dial: "+353" },
+  { code: "RO", dial: "+40" },
+  { code: "PL", dial: "+48" },
+  { code: "GR", dial: "+30" },
+  { code: "MT", dial: "+356" },
+  { code: "CY", dial: "+357" },
+  { code: "HR", dial: "+385" },
+  { code: "SI", dial: "+386" },
+  { code: "SK", dial: "+421" },
+  { code: "CZ", dial: "+420" },
+  { code: "HU", dial: "+36" },
+  { code: "BG", dial: "+359" },
+  { code: "DK", dial: "+45" },
+  { code: "SE", dial: "+46" },
+  { code: "NO", dial: "+47" },
+  { code: "FI", dial: "+358" },
+  { code: "MC", dial: "+377" },
+  { code: "SM", dial: "+378" },
+  { code: "TR", dial: "+90" },
+  { code: "MA", dial: "+212" },
+  { code: "DZ", dial: "+213" },
+  { code: "TN", dial: "+216" },
+  { code: "EG", dial: "+20" },
+  { code: "AE", dial: "+971" },
+  { code: "SA", dial: "+966" },
+  { code: "QA", dial: "+974" },
+  { code: "KW", dial: "+965" },
+  { code: "BH", dial: "+973" },
+  { code: "OM", dial: "+968" },
+  { code: "JO", dial: "+962" },
+  { code: "LB", dial: "+961" },
+  { code: "US", dial: "+1" },
+  { code: "CA", dial: "+1" },
+  { code: "MX", dial: "+52" },
+  { code: "BR", dial: "+55" },
+  { code: "AR", dial: "+54" },
+  { code: "IN", dial: "+91" },
+  { code: "PK", dial: "+92" },
+  { code: "ZA", dial: "+27" },
+  { code: "NG", dial: "+234" },
+  { code: "AU", dial: "+61" },
+  { code: "NZ", dial: "+64" },
+]
+
+/** Country preselected in the phone field for each page language. */
+export const defaultCountry: Record<Locale, string> = {
+  en: "GB",
+  it: "IT",
+  fr: "FR",
+  ar: "AE",
+}
