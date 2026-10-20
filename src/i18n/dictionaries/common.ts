@@ -1,11 +1,11 @@
 import type { Locale } from "@/i18n/config"
 
 // Page title and description for search engines and link previews.
-// TODO(ib2b): placeholders until the user sends the real title and description.
 const en = {
   meta: {
-    title: "Med Spa | Intelligent B2B",
-    description: "Med spa landing page.",
+    title: "IntelligentB2B | Booked patients for med spas",
+    description:
+      "We fill your med spa calendar with patients ready to pay for Botox, fillers, laser hair removal and body contouring. Get your free clinic growth analysis.",
   },
 }
 
@@ -13,22 +13,24 @@ export type CommonDict = typeof en
 
 const it: CommonDict = {
   meta: {
-    title: "Med Spa | Intelligent B2B",
-    description: "Landing page per centri di medicina estetica.",
+    title: "Torch | Per cliniche di medicina estetica",
+    description:
+      "Ogni paziente che ti scrive diventa un appuntamento in agenda. Torch risponde su WhatsApp in pochi secondi e fissa la consulenza.",
   },
 }
 
 const fr: CommonDict = {
   meta: {
-    title: "Med Spa | Intelligent B2B",
-    description: "Page d'accueil pour centres de médecine esthétique.",
+    title: "Torch | Pour les cliniques de médecine esthétique",
+    description:
+      "Chaque patient qui vous écrit devient un rendez-vous dans votre agenda. Torch répond sur WhatsApp en quelques secondes et fixe la consultation.",
   },
 }
 
 const ar: CommonDict = {
   meta: {
-    title: "Med Spa | Intelligent B2B",
-    description: "صفحة هبوط لمراكز التجميل الطبي.",
+    title: "Torch | لعيادات الطب التجميلي",
+    description: "كل مريض يراسلك يصبح موعدًا في جدولك. يرد Torch على واتساب خلال ثوانٍ ويحجز الاستشارة.",
   },
 }
 
