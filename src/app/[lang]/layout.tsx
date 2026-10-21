@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { IBM_Plex_Sans_Arabic, Inter, Source_Serif_4 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "../globals.css";
 import { siteName, siteUrl } from "@/content/site";
 import { defaultLocale, dirOf, isLocale, localizeHref, ogLocale } from "@/i18n/config";
@@ -76,6 +77,8 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       {/* Browser extensions (e.g. ColorZilla's cz-shortcut-listen) inject attributes on <body>. */}
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
         {children}
+        {/* Vercel Web Analytics: page views only, no cookies. */}
+        <Analytics />
       </body>
     </html>
   );
