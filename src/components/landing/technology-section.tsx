@@ -55,21 +55,21 @@ export function TechnologySection({ t, lang }: { t: TechnologyDict; lang: Locale
             {`${t.title.strong} `}
             <span className="text-neutral-400">{t.title.soft}</span>
           </h2>
-          <p className="max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{t.subline}</p>
+          <p className="max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{t.subline}</p>
         </div>
 
         <ul ref={grid} className="mt-10 grid gap-2 sm:grid-cols-2 lg:mt-14 lg:grid-cols-4">
           {/* Close-up A: pipeline */}
           <li className={`sm:col-span-2 lg:row-span-2 ${fadeUp(inView)}`} style={delay(0)}>
             <div className="flex h-full flex-col bg-neutral-100 p-6 sm:p-8">
-              <p className="font-mono text-xs tracking-wide text-accent-text uppercase">{t.closeUp}</p>
+              <p className="font-sans text-xs tracking-wide text-accent-text uppercase">{t.closeUp}</p>
               <h3 className="mt-4 text-2xl leading-tight font-medium tracking-tight">{t.pipeline.title}</h3>
-              <p className="mt-3 max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{t.pipeline.body}</p>
+              <p className="mt-3 max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{t.pipeline.body}</p>
 
               <div aria-hidden="true" className="mt-auto pt-8">
                 <div className="grid grid-cols-3 gap-2">
                   {t.pipeline.columns.map((label) => (
-                    <p key={label} className="truncate font-mono text-[0.625rem] tracking-wide text-neutral-500 uppercase">
+                    <p key={label} className="truncate font-sans text-[0.625rem] tracking-wide text-neutral-500 uppercase">
                       {label}
                     </p>
                   ))}
@@ -97,15 +97,15 @@ export function TechnologySection({ t, lang }: { t: TechnologyDict; lang: Locale
           {/* Close-up B: assistant */}
           <li className={`sm:col-span-2 lg:row-span-2 ${fadeUp(inView)}`} style={delay(1)}>
             <div className="flex h-full flex-col bg-neutral-100 p-6 sm:p-8">
-              <p className="font-mono text-xs tracking-wide text-accent-text uppercase">{t.closeUp}</p>
+              <p className="font-sans text-xs tracking-wide text-accent-text uppercase">{t.closeUp}</p>
               <h3 className="mt-4 text-2xl leading-tight font-medium tracking-tight">{t.assistant.title}</h3>
-              <p className="mt-3 max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{t.assistant.body}</p>
+              <p className="mt-3 max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{t.assistant.body}</p>
 
               <div aria-hidden="true" className="mt-auto flex items-center pt-8">
                 {t.assistant.steps.map((step, i) => (
                   <div key={step} className="flex flex-1 items-center last:flex-none">
                     <span
-                      className="shrink-0 rounded-full border border-neutral-200 bg-white px-3 py-2 font-mono text-[0.625rem] tracking-wide whitespace-nowrap text-neutral-500 uppercase animate-pill-light motion-reduce:animate-none sm:px-4 sm:text-xs"
+                      className="shrink-0 rounded-full border border-neutral-200 bg-white px-3 py-2 font-sans text-[0.625rem] tracking-wide whitespace-nowrap text-neutral-500 uppercase animate-pill-light motion-reduce:animate-none sm:px-4 sm:text-xs"
                       style={{ animationDelay: `${i}s` }}
                     >
                       {step}
@@ -125,7 +125,7 @@ export function TechnologySection({ t, lang }: { t: TechnologyDict; lang: Locale
                 <div className="group flex h-full min-h-44 flex-col bg-neutral-100 p-6 transition-transform duration-200 ease-out hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:translate-y-0">
                   <Icon aria-hidden="true" className="size-5 text-neutral-500 transition-colors duration-200 group-hover:text-accent" strokeWidth={1.75} />
                   <h3 className="mt-auto pt-6 text-[1.0625rem] leading-tight font-medium tracking-tight">{feature.title}</h3>
-                  <p className="mt-2 font-mono text-[0.6875rem] leading-relaxed text-neutral-600 uppercase">{feature.body}</p>
+                  <p className="mt-2 font-sans text-[0.6875rem] leading-relaxed text-neutral-600 uppercase">{feature.body}</p>
                 </div>
               </li>
             )
@@ -138,7 +138,7 @@ export function TechnologySection({ t, lang }: { t: TechnologyDict; lang: Locale
               className={`group flex h-full min-h-44 items-end justify-between gap-6 bg-neutral-950 p-6 text-white transition-colors hover:bg-neutral-800 ${ring}`}
             >
               <span className="max-w-[16rem] text-2xl leading-tight font-medium tracking-tight">{t.cta.label}</span>
-              <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-none bg-accent transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none">
+              <span aria-hidden="true" className="grid size-11 shrink-0 place-items-center rounded-full bg-accent transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none">
                 <ArrowRight className="size-4 rtl:rotate-180" />
               </span>
             </a>

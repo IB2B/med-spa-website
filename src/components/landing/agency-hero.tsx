@@ -48,8 +48,8 @@ const enter = "animate-fade-up motion-reduce:animate-none"
 const delay = (ms: number) => ({ animationDelay: `${ms}ms` })
 const ring = "outline-none focus-visible:ring-4 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
 
-// Black button + accent square arrow, shared by every section. `tone="light"` is the white version
-// for dark bands. Label and link default to the hero's.
+// Black pill button with the accent arrow circle inside, shared by every section. `tone="light"` is
+// the white version for dark bands. Label and link default to the hero's.
 export function CtaPair({
   size = "md",
   tone = "dark",
@@ -62,33 +62,29 @@ export function CtaPair({
   href?: string
 }) {
   const h = size === "sm" ? "min-h-10" : "min-h-11"
-  const sq = size === "sm" ? "size-10" : "size-11"
+  const dot = size === "sm" ? "size-8" : "size-9"
   const main =
     tone === "light"
       ? "bg-white text-neutral-950 hover:bg-neutral-200"
       : "bg-neutral-950 text-white hover:bg-neutral-800"
   return (
-    <div className="flex items-center gap-1.5">
-      <a
-        href={href}
-        className={`inline-flex ${h} items-center rounded-none px-5 font-mono text-xs font-medium tracking-wide uppercase transition-colors ${ring} ${main}`}
-      >
-        {label}
-      </a>
-      <a
-        href={href}
+    <a
+      href={href}
+      className={`group flex w-fit ${h} items-center gap-3 rounded-full py-1 ps-5 pe-1 font-sans text-xs font-medium tracking-wide uppercase transition-colors ${ring} ${main}`}
+    >
+      {label}
+      <span
         aria-hidden="true"
-        tabIndex={-1}
-        className={`grid ${sq} place-items-center rounded-none bg-accent text-white transition-colors hover:bg-accent-hover`}
+        className={`grid ${dot} shrink-0 place-items-center rounded-full bg-accent text-white transition-colors group-hover:bg-accent-hover`}
       >
         <ArrowRight className="size-4 rtl:rotate-180" />
-      </a>
-    </div>
+      </span>
+    </a>
   )
 }
 
 // Styled after the user's reference (same as the testimonials): white, uppercase headline with grey
-// highlights, mono uppercase small text, accent accents. Top bar: logo, two links, the CTA pair.
+// highlights, uppercase small text, accent accents. Top bar: logo, two links, the CTA pair.
 export function AgencyHero({ lang }: { lang: Locale }) {
   const book = localizeHref(lang, copy.cta.href)
   return (
@@ -104,7 +100,7 @@ export function AgencyHero({ lang }: { lang: Locale }) {
             priority
             className="h-8 w-auto sm:h-9"
           />
-          <nav aria-label="Main" className="hidden items-center gap-8 font-mono text-xs tracking-wide text-neutral-600 uppercase md:flex">
+          <nav aria-label="Main" className="hidden items-center gap-8 font-sans text-xs tracking-wide text-neutral-600 uppercase md:flex">
             {copy.nav.map((link) => (
               <a key={link.href} href={link.href} className={`rounded-sm transition-colors hover:text-neutral-950 ${ring}`}>
                 {link.label}
@@ -116,7 +112,7 @@ export function AgencyHero({ lang }: { lang: Locale }) {
       </header>
 
       <div className="mx-auto max-w-6xl px-4 pt-10 pb-16 sm:px-6 lg:pt-14 lg:pb-24">
-        <div className="flex items-center justify-between gap-4 font-mono text-xs tracking-wide text-neutral-600 uppercase">
+        <div className="flex items-center justify-between gap-4 font-sans text-xs tracking-wide text-neutral-600 uppercase">
           <span className="flex items-center gap-2">
             <span aria-hidden="true" className="size-2 rotate-45 bg-accent" />
             {copy.eyebrow}
@@ -142,7 +138,7 @@ export function AgencyHero({ lang }: { lang: Locale }) {
           </h1>
 
           <div className={enter} style={delay(150)}>
-            <p className="max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{copy.subheadline}</p>
+            <p className="max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{copy.subheadline}</p>
             <div className="mt-6">
               <CtaPair href={book} />
             </div>
@@ -166,7 +162,7 @@ export function AgencyHero({ lang }: { lang: Locale }) {
               className="absolute inset-0 size-full object-cover"
             />
           ) : (
-            <div className="absolute inset-4 grid place-items-center border border-dashed border-neutral-300 font-mono text-xs tracking-wide text-neutral-500 uppercase">
+            <div className="absolute inset-4 grid place-items-center border border-dashed border-neutral-300 font-sans text-xs tracking-wide text-neutral-500 uppercase">
               {copy.video.placeholder}
             </div>
           )}

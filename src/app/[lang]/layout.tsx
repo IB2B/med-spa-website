@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { IBM_Plex_Sans_Arabic, Inter, Source_Serif_4 } from "next/font/google";
-import { GeistMono } from "geist/font/mono";
 import "../globals.css";
 import { siteName, siteUrl } from "@/content/site";
 import { dirOf, isLocale, locales, ogLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
 
-// Body text.
+// Body text, labels, notes and buttons.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
@@ -73,7 +72,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       dir={dirOf(lang)}
       // Keeps page-to-page navigation instant while in-page anchors scroll smoothly (globals.css).
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${display.variable} ${plexArabic.variable} ${GeistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${display.variable} ${plexArabic.variable} h-full antialiased`}
     >
       {/* Browser extensions (e.g. ColorZilla's cz-shortcut-listen) inject attributes on <body>. */}
       <body className="min-h-full flex flex-col" suppressHydrationWarning>

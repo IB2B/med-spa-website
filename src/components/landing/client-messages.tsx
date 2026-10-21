@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { ArrowRight } from "lucide-react"
+import { CtaPair } from "@/components/landing/agency-hero"
 import { Keyword } from "@/components/landing/keyword"
 
 import { localizeHref, type Locale } from "@/i18n/config"
@@ -67,7 +68,7 @@ function orb(name: string) {
 
 const ring = "outline-none focus-visible:ring-4 focus-visible:ring-accent/45 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
 
-// Styled after the user's reference: white band, uppercase title, mono text, accent accents.
+// Styled after the user's reference: white band, uppercase title, small uppercase text, accent accents.
 // Title, intro and button on the start side; quote cards on the end side in a scroll-snap row that
 // moves on by one card every 5s (paused on hover/focus, off with reduced motion). The accent button steps it.
 export function ClientMessages({ lang }: { lang: Locale }) {
@@ -96,7 +97,7 @@ export function ClientMessages({ lang }: { lang: Locale }) {
   return (
     <section id="results" aria-labelledby="client-messages-title" className="scroll-mt-6 bg-white py-16 text-neutral-950 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex items-center justify-between border-t border-neutral-200 pt-5 font-mono text-xs tracking-wide text-neutral-600 uppercase">
+        <div className="flex items-center justify-between border-t border-neutral-200 pt-5 font-sans text-xs tracking-wide text-neutral-600 uppercase">
           <span className="flex items-center gap-2">
             <span aria-hidden="true" className="size-2 rotate-45 bg-accent" />
             {copy.eyebrow}
@@ -115,24 +116,19 @@ export function ClientMessages({ lang }: { lang: Locale }) {
               <Keyword>{copy.title.soft}</Keyword>
               {` ${copy.title.end}`}
             </h2>
-            <p className="mt-6 max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{copy.intro}</p>
+            <p className="mt-6 max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{copy.intro}</p>
             <div className="mt-8 flex items-center gap-1.5">
-              <a
-                href={localizeHref(lang, copy.cta.href)}
-                className={`inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-mono text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
-              >
-                {copy.cta.label}
-              </a>
+              <CtaPair label={copy.cta.label} href={localizeHref(lang, copy.cta.href)} />
               <button
                 type="button"
                 onClick={() => step(1)}
                 aria-label={copy.next}
-                className={`grid size-11 place-items-center rounded-none bg-accent text-white transition-colors hover:bg-accent-hover ${ring}`}
+                className={`grid size-11 place-items-center rounded-full bg-accent text-white transition-colors hover:bg-accent-hover ${ring}`}
               >
                 <ArrowRight className="size-4 rtl:rotate-180" />
               </button>
             </div>
-            <p className="mt-3 font-mono text-[0.6875rem] leading-relaxed text-neutral-500 uppercase">{copy.cta.note}</p>
+            <p className="mt-3 font-sans text-[0.6875rem] leading-relaxed text-neutral-500 uppercase">{copy.cta.note}</p>
           </div>
 
           <ul
@@ -151,17 +147,17 @@ export function ClientMessages({ lang }: { lang: Locale }) {
                 <span aria-hidden="true" className="text-6xl leading-[0.75] font-black text-accent-text">
                   &rdquo;
                 </span>
-                <blockquote lang="it" className="mt-5 font-mono text-xs leading-relaxed text-neutral-800 uppercase">
+                <blockquote lang="it" className="mt-5 font-sans text-xs leading-relaxed text-neutral-800 uppercase">
                   {t.quote}
                 </blockquote>
                 <div className="mt-8 flex items-center gap-3">
                   <span aria-hidden="true" className="size-10 shrink-0 rounded-full shadow-sm" style={orb(t.name)} />
                   <div>
                     <p className="text-[0.9375rem] font-medium">{t.name}</p>
-                    <p className="font-mono text-[0.6875rem] text-neutral-500">{t.clinic}</p>
+                    <p className="font-sans text-[0.6875rem] text-neutral-500">{t.clinic}</p>
                   </div>
                 </div>
-                <p className="mt-auto self-end pt-6 text-sm font-semibold tracking-tight text-neutral-500">{t.result}</p>
+                <p className="mt-auto self-end pt-6 font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{t.result}</p>
               </li>
             ))}
           </ul>

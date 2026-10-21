@@ -260,19 +260,19 @@ export function DetailsForm({ t, lang, values, onChange, toInput, onSubmit, subm
             {serverError}
           </p>
         ) : null}
-        <div className="flex items-center gap-1.5">
+        <div className="flex">
           <button
             type="submit"
             disabled={submitting}
             aria-busy={submitting || undefined}
-            className={`inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-none bg-neutral-950 px-5 font-mono text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 disabled:cursor-wait disabled:opacity-70 sm:flex-none ${ring}`}
+            className={`inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full bg-neutral-950 py-1.5 ps-6 pe-1.5 font-sans text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 disabled:cursor-wait disabled:opacity-70 sm:flex-none ${ring}`}
           >
             {submitting ? <Loader2 className="size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" /> : null}
             {submitting ? t.submitting : t.submit}
+            <span aria-hidden="true" className="ms-2 grid size-9 shrink-0 place-items-center rounded-full bg-accent text-white">
+              <ArrowRight className="size-4 rtl:rotate-180" />
+            </span>
           </button>
-          <span aria-hidden="true" className="grid size-12 shrink-0 place-items-center rounded-none bg-accent text-white">
-            <ArrowRight className="size-4 rtl:rotate-180" />
-          </span>
         </div>
       </div>
     </form>

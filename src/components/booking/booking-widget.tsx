@@ -138,7 +138,7 @@ export function BookingWidget({ t, lang }: { t: BookingDict; lang: Locale }) {
               key={label}
               aria-current={current ? "step" : undefined}
               className={cn(
-                "flex items-center gap-2 border-b-2 px-3 py-4 font-mono text-[0.625rem] tracking-wide uppercase sm:px-6 sm:text-xs",
+                "flex items-center gap-2 border-b-2 px-3 py-4 font-sans text-[0.625rem] tracking-wide uppercase sm:px-6 sm:text-xs",
                 current ? "border-accent text-neutral-950" : "border-transparent text-neutral-400",
                 done && "text-neutral-600"
               )}
@@ -177,17 +177,17 @@ export function BookingWidget({ t, lang }: { t: BookingDict; lang: Locale }) {
           <div>
             <div className="mb-6 flex flex-wrap items-center justify-between gap-3 bg-neutral-100 px-4 py-3 sm:px-5">
               <div>
-                <p className="font-mono text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{t.chosen}</p>
+                <p className="font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{t.chosen}</p>
                 <p className="mt-1 font-medium">
                   {formatLongDate(slot, timeZone, lang)} · {formatTime(slot, timeZone, lang)}
                 </p>
-                <p className="font-mono text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{timeZoneLabel(timeZone, lang)}</p>
+                <p className="font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{timeZoneLabel(timeZone, lang)}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setStep(0)}
                 disabled={submitting}
-                className={`inline-flex min-h-11 items-center rounded-sm font-mono text-xs tracking-wide text-accent-text uppercase underline underline-offset-4 hover:text-accent-hover disabled:opacity-50 ${ring}`}
+                className={`inline-flex min-h-11 items-center rounded-sm font-sans text-xs tracking-wide text-accent-text uppercase underline underline-offset-4 hover:text-accent-hover disabled:opacity-50 ${ring}`}
               >
                 {t.change}
               </button>
@@ -217,21 +217,21 @@ export function BookingWidget({ t, lang }: { t: BookingDict; lang: Locale }) {
             <p className="mt-3 text-lg font-medium">
               {formatLongDate(booked.start, timeZone, lang)} · {formatTime(booked.start, timeZone, lang)}
             </p>
-            <p className="font-mono text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{timeZoneLabel(timeZone, lang)}</p>
-            <p className="mt-5 max-w-md font-mono text-xs leading-relaxed text-neutral-700 uppercase">{t.reminder}</p>
+            <p className="font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{timeZoneLabel(timeZone, lang)}</p>
+            <p className="mt-5 max-w-md font-sans text-xs leading-relaxed text-neutral-700 uppercase">{t.reminder}</p>
             <div className="mt-6 flex flex-wrap gap-2">
               <a
                 href={googleCalendarUrl(event)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-mono text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
+                className={`inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-sans text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
               >
                 {t.addGoogle}
               </a>
               <button
                 type="button"
                 onClick={() => downloadIcs(event)}
-                className={`inline-flex min-h-11 items-center gap-2 rounded-none border border-neutral-300 bg-white px-5 font-mono text-xs font-medium tracking-wide uppercase transition-colors hover:bg-neutral-100 ${ring}`}
+                className={`inline-flex min-h-11 items-center gap-2 rounded-none border border-neutral-300 bg-white px-5 font-sans text-xs font-medium tracking-wide uppercase transition-colors hover:bg-neutral-100 ${ring}`}
               >
                 <Download className="size-4" aria-hidden="true" />
                 {t.downloadIcs}
