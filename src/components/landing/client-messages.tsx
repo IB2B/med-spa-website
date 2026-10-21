@@ -10,7 +10,8 @@ import { localizeHref, type Locale } from "@/i18n/config"
 // ─── Edit everything here ───────────────────────────────────────────────────────────────────────
 // Real messages from clients, word for word in Italian as they wrote them on WhatsApp.
 // `result` is the small tag at the top of each card.
-const copy = {
+// One block per language (`en`, `it`); French and Arabic fall back to English.
+const en = {
   title: { strong: "What", soft: "our clients", end: "say" },
   eyebrow: "Testimonials",
   eyebrowEnd: "Salons & clinics",
@@ -54,6 +55,31 @@ const copy = {
     note: "Includes a free analysis of your clinic. First 10 clinics only.",
   },
 }
+
+const itResults = [
+  "15 richieste in 5 giorni",
+  "7 nuove clienti in una settimana",
+  "€1.850 al mese, ricorrenti",
+  "Primo contatto chiuso a €1.150",
+  "12 appuntamenti pagati in una settimana",
+]
+
+const it: typeof en = {
+  title: { strong: "Cosa dicono", soft: "i nostri clienti", end: "" },
+  eyebrow: "Testimonianze",
+  eyebrowEnd: "Centri estetici e cliniche",
+  intro: "Messaggi WhatsApp reali dei centri estetici e delle cliniche per cui gestiamo le pubblicità, parola per parola.",
+  next: "Testimonianza successiva",
+  // Same messages (already in Italian); only the tags change.
+  testimonials: en.testimonials.map((t, i) => ({ ...t, result: itResults[i] ?? t.result })),
+  cta: {
+    label: "Prenota una call gratuita",
+    href: "/book",
+    note: "Include un'analisi gratuita della tua clinica. Solo per le prime 10 cliniche.",
+  },
+}
+
+const copies: Record<Locale, typeof en> = { en, it, fr: en, ar: en }
 // ────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Gradient "orb" avatar generated from the name: same name, same colours, no photo needed.
@@ -72,6 +98,7 @@ const ring = "outline-none focus-visible:ring-4 focus-visible:ring-accent/45 foc
 // Title, intro and button on the start side; quote cards on the end side in a scroll-snap row that
 // moves on by one card every 5s (paused on hover/focus, off with reduced motion). The accent button steps it.
 export function ClientMessages({ lang }: { lang: Locale }) {
+  const copy = copies[lang]
   const track = useRef<HTMLUListElement>(null)
   const [paused, setPaused] = useState(false)
 
@@ -114,7 +141,7 @@ export function ClientMessages({ lang }: { lang: Locale }) {
             >
               {`${copy.title.strong} `}
               <Keyword>{copy.title.soft}</Keyword>
-              {` ${copy.title.end}`}
+              {copy.title.end ? ` ${copy.title.end}` : null}
             </h2>
             <p className="mt-6 max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{copy.intro}</p>
             <div className="mt-8 flex items-center gap-1.5">

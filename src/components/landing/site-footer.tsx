@@ -9,7 +9,7 @@ const link = `inline-flex min-h-11 items-center rounded-sm transition-colors hov
 
 // Footer: logo + section links, then Contact / Company / Legal in small caps, then the © line.
 // Everything stacks on mobile; every link is at least 44px tall. On other pages (e.g. /book) pass
-// `home` ("/en") so the section links (#faq…) go back to the home page.
+// `home` ("/" or "/en") so the section links (#faq…) go back to the home page.
 export function SiteFooter({ t, home = "" }: { t: FooterDict; home?: string }) {
   const year = new Date().getFullYear()
 

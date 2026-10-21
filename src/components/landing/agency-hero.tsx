@@ -9,12 +9,14 @@
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 
+import { HeroVideo } from "@/components/landing/hero-video"
 import { Keyword } from "@/components/landing/keyword"
 import { localizeHref, type Locale } from "@/i18n/config"
 
 // ─── Edit everything here ───────────────────────────────────────────────────────────────────────
 // Text in [brackets] and anything marked PLACEHOLDER is not real yet: replace it before going live.
-const copy = {
+// One block per language (`en`, `it`); French and Arabic fall back to English.
+const en = {
   logo: { src: "/brand/intelligentb2b-logo-light.png", alt: "IntelligentB2B" },
   headline: [
     { text: "We fill your " },
@@ -33,15 +35,67 @@ const copy = {
     { label: "FAQ", href: "#faq" },
     { label: "Contact", href: "#contact" },
   ],
-  cta: { label: "Book free call", href: "/book" },
+  cta: { label: "Book free call", short: "Book free call", href: "/book" }, // `short`: the small top-bar button
   video: {
-    // Put the file in /public (e.g. /public/hero/clinic.mp4) and set src to "/hero/clinic.mp4".
-    src: null as string | null,
+    // Put the file in /public (e.g. /public/hero/clinic.mp4) and set src to "/hero/clinic.mp4", or use a full URL.
+    src: "https://estetica.intelligentb2b.com/__l5e/assets-v1/e6ffca4d-17cb-4ea7-b601-b24b65df1131/metodo-centri-estetici.mp4" as string | null,
     poster: null as string | null, // optional still image shown before the video loads
     label: "Video: a day at a fully booked med spa",
     placeholder: "Video slot (16:9)",
+    // Player controls (also read by screen readers).
+    ui: {
+      start: "Play video",
+      play: "Play",
+      pause: "Pause",
+      mute: "Mute",
+      unmute: "Unmute",
+      fullscreen: "Fullscreen",
+      exitFullscreen: "Exit fullscreen",
+      seek: "Seek",
+      of: "of",
+    },
   },
 }
+
+const it: typeof en = {
+  logo: en.logo,
+  headline: [
+    { text: "Riempiamo " },
+    { text: "l'agenda della tua clinica", soft: true },
+    { text: " di pazienti " },
+    { text: "pronti a pagare", soft: true },
+    { text: " per trattamenti premium" },
+  ],
+  subheadline:
+    "Gestiamo le pubblicità per i tuoi trattamenti di botox, filler, epilazione laser e rimodellamento corporeo, poi pre-qualifichiamo ogni paziente sul budget, così la tua reception parla solo con chi è pronto a prenotare.",
+  eyebrow: "Per cliniche estetiche",
+  eyebrowEnd: "Pubblicità + pre-qualifica dei pazienti",
+  nav: [
+    { label: "Risultati", href: "#results" },
+    { label: "Tecnologia", href: "#technology" },
+    { label: "FAQ", href: "#faq" },
+    { label: "Contatti", href: "#contact" },
+  ],
+  cta: { label: "Prenota una call gratuita", short: "Prenota la call", href: "/book" },
+  video: {
+    ...en.video,
+    label: "Video: una giornata in una clinica estetica con l'agenda piena",
+    placeholder: "Spazio video (16:9)",
+    ui: {
+      start: "Guarda il video",
+      play: "Riproduci",
+      pause: "Pausa",
+      mute: "Disattiva audio",
+      unmute: "Attiva audio",
+      fullscreen: "Schermo intero",
+      exitFullscreen: "Esci da schermo intero",
+      seek: "Avanzamento",
+      of: "di",
+    },
+  },
+}
+
+const copies: Record<Locale, typeof en> = { en, it, fr: en, ar: en }
 // ────────────────────────────────────────────────────────────────────────────────────────────────
 
 const enter = "animate-fade-up motion-reduce:animate-none"
@@ -53,8 +107,8 @@ const ring = "outline-none focus-visible:ring-4 focus-visible:ring-accent/40 foc
 export function CtaPair({
   size = "md",
   tone = "dark",
-  label = copy.cta.label,
-  href = copy.cta.href,
+  label = en.cta.label,
+  href = en.cta.href,
 }: {
   size?: "sm" | "md"
   tone?: "dark" | "light"
@@ -86,6 +140,7 @@ export function CtaPair({
 // Styled after the user's reference (same as the testimonials): white, uppercase headline with grey
 // highlights, uppercase small text, accent accents. Top bar: logo, two links, the CTA pair.
 export function AgencyHero({ lang }: { lang: Locale }) {
+  const copy = copies[lang]
   const book = localizeHref(lang, copy.cta.href)
   return (
     <section aria-labelledby="hero-title" className="bg-white text-neutral-950">
@@ -107,7 +162,7 @@ export function AgencyHero({ lang }: { lang: Locale }) {
               </a>
             ))}
           </nav>
-          <CtaPair size="sm" href={book} />
+          <CtaPair size="sm" label={copy.cta.short} href={book} />
         </div>
       </header>
 
@@ -140,27 +195,18 @@ export function AgencyHero({ lang }: { lang: Locale }) {
           <div className={enter} style={delay(150)}>
             <p className="max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{copy.subheadline}</p>
             <div className="mt-6">
-              <CtaPair href={book} />
+              <CtaPair label={copy.cta.label} href={book} />
             </div>
           </div>
         </div>
 
         {/* Video */}
         <div
-          className={`relative mt-14 aspect-[4/5] overflow-hidden bg-neutral-100 sm:aspect-video lg:mt-20 ${enter}`}
+          className={`relative mt-14 aspect-[4/5] overflow-hidden rounded-xl bg-neutral-100 sm:aspect-video lg:mt-20 ${enter}`}
           style={delay(300)}
         >
           {copy.video.src ? (
-            <video
-              src={copy.video.src}
-              poster={copy.video.poster ?? undefined}
-              aria-label={copy.video.label}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 size-full object-cover"
-            />
+            <HeroVideo src={copy.video.src} poster={copy.video.poster ?? undefined} label={copy.video.label} ui={copy.video.ui} />
           ) : (
             <div className="absolute inset-4 grid place-items-center border border-dashed border-neutral-300 font-sans text-xs tracking-wide text-neutral-500 uppercase">
               {copy.video.placeholder}

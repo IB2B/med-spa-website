@@ -1,7 +1,8 @@
-// Languages of the landing page. English is the fallback when the browser asks for none of these.
+// Languages of the landing page. Italian is the default and lives at the root (/, /book); the
+// others keep their prefix (/en, /en/book…).
 export const locales = ["en", "it", "fr", "ar"] as const
 export type Locale = (typeof locales)[number]
-export const defaultLocale: Locale = "en"
+export const defaultLocale: Locale = "it"
 
 export function isLocale(value: string): value is Locale {
   return (locales as readonly string[]).includes(value)
@@ -39,9 +40,9 @@ export const ogLocale: Record<Locale, string> = {
 /** Cookie that remembers the visitor's choice from the language switcher. */
 export const LOCALE_COOKIE = "medspa-locale"
 
-/** "/privacy" → "/it/privacy". Leaves anchors (#pricing) and external URLs alone. */
+/** "/privacy" → "/en/privacy" (Italian, the default, stays "/privacy"). Leaves anchors (#pricing) and external URLs alone. */
 export function localizeHref(locale: Locale, href: string): string {
-  if (!href.startsWith("/")) return href
+  if (!href.startsWith("/") || locale === defaultLocale) return href
   return href === "/" ? `/${locale}` : `/${locale}${href}`
 }
 

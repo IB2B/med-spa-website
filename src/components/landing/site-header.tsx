@@ -1,4 +1,4 @@
-import type { Locale } from "@/i18n/config"
+import { localizeHref, type Locale } from "@/i18n/config"
 import type { ChromeDict } from "@/i18n/dictionaries/chrome"
 
 const focusRing = "rounded-md outline-none focus-visible:ring-3 focus-visible:ring-brand/40"
@@ -9,7 +9,7 @@ export function SiteHeader({ t, lang }: { t: ChromeDict; lang: Locale }) {
     <header className="py-4">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* TODO(ib2b): replace the text placeholder with the Torch logo in public/brand/ */}
-        <a href={`/${lang}`} aria-label={t.header.homeLabel} className={`font-heading text-2xl font-medium ${focusRing}`}>
+        <a href={localizeHref(lang, "/")} aria-label={t.header.homeLabel} className={`font-heading text-2xl font-medium ${focusRing}`}>
           Torch
         </a>
         {/* TODO(ib2b): link to the real login page */}
