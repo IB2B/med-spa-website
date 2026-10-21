@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { IBM_Plex_Sans_Arabic, Inter, Source_Serif_4 } from "next/font/google";
-import { GeistMono } from "geist/font/mono";
 import "../globals.css";
 import { siteName, siteUrl } from "@/content/site";
-import { dirOf, isLocale, locales, ogLocale } from "@/i18n/config";
+import { defaultLocale, dirOf, isLocale, localizeHref, ogLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
 
-// Body text.
+// Body text, labels, notes and buttons.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
@@ -26,11 +25,12 @@ const plexArabic = IBM_Plex_Sans_Arabic({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-// One static page per language; any other first segment is a 404.
+// Only the Italian pages are published (served at / by src/proxy.ts); any other first segment is a 404.
+// The other languages' text stays in the dictionaries for later.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return locales.map((lang) => ({ lang }));
+  return [{ lang: defaultLocale }];
 }
 
 export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Promise<Metadata> {
@@ -43,13 +43,11 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
     title,
     description,
     alternates: {
-      canonical: `/${lang}`,
-      // Tells search engines which address holds which language.
-      languages: { ...Object.fromEntries(locales.map((l) => [l, `/${l}`])), "x-default": "/en" },
+      canonical: localizeHref(lang, "/"),
     },
     openGraph: {
       type: "website",
-      url: `/${lang}`,
+      url: localizeHref(lang, "/"),
       siteName,
       locale: ogLocale[lang],
       title,
@@ -73,7 +71,7 @@ export default async function RootLayout({ children, params }: LayoutProps<"/[la
       dir={dirOf(lang)}
       // Keeps page-to-page navigation instant while in-page anchors scroll smoothly (globals.css).
       data-scroll-behavior="smooth"
-      className={`${inter.variable} ${display.variable} ${plexArabic.variable} ${GeistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${display.variable} ${plexArabic.variable} h-full antialiased`}
     >
       {/* Browser extensions (e.g. ColorZilla's cz-shortcut-listen) inject attributes on <body>. */}
       <body className="min-h-full flex flex-col" suppressHydrationWarning>

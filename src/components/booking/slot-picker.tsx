@@ -99,7 +99,7 @@ export function SlotPicker({ t, lang, timeZone, onTimeZoneChange, state, onRetry
   return (
     <div>
       {/* Timezone */}
-      <div className="flex min-h-11 flex-wrap items-center gap-x-2 gap-y-1 font-mono text-[0.6875rem] tracking-wide text-neutral-600 uppercase">
+      <div className="flex min-h-11 flex-wrap items-center gap-x-2 gap-y-1 font-sans text-[0.6875rem] tracking-wide text-neutral-600 uppercase">
         <Globe className="size-3.5 shrink-0" aria-hidden="true" />
         {!timeZone ? null : editingTz ? (
           <label className="flex min-w-0 flex-1 items-center gap-2">
@@ -171,7 +171,7 @@ export function SlotPicker({ t, lang, timeZone, onTimeZoneChange, state, onRetry
               <button
                 type="button"
                 onClick={onRetry}
-                className={`inline-flex min-h-11 items-center rounded-none border border-neutral-300 bg-white px-5 font-mono text-xs font-medium tracking-wide uppercase transition-colors hover:bg-neutral-200 ${ring}`}
+                className={`inline-flex min-h-11 items-center rounded-none border border-neutral-300 bg-white px-5 font-sans text-xs font-medium tracking-wide uppercase transition-colors hover:bg-neutral-200 ${ring}`}
               >
                 {t.retry}
               </button>
@@ -179,7 +179,7 @@ export function SlotPicker({ t, lang, timeZone, onTimeZoneChange, state, onRetry
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-mono text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
+                className={`inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-sans text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
               >
                 {t.whatsappFallback}
               </a>
@@ -192,7 +192,7 @@ export function SlotPicker({ t, lang, timeZone, onTimeZoneChange, state, onRetry
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className={`mt-5 inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-mono text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
+              className={`mt-5 inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-sans text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
             >
               {t.whatsappFallback}
             </a>
@@ -215,7 +215,7 @@ export function SlotPicker({ t, lang, timeZone, onTimeZoneChange, state, onRetry
 
               <div className="mt-3 grid grid-cols-7 gap-1 text-center" role="grid" aria-label={monthTitle}>
                 {weekdays.map((w) => (
-                  <span key={w} className="pb-1 font-mono text-[0.625rem] tracking-wide text-neutral-500 uppercase" role="columnheader">
+                  <span key={w} className="pb-1 font-sans text-[0.625rem] tracking-wide text-neutral-500 uppercase" role="columnheader">
                     {w}
                   </span>
                 ))}
@@ -253,7 +253,7 @@ export function SlotPicker({ t, lang, timeZone, onTimeZoneChange, state, onRetry
               <p className="text-base font-medium tracking-tight">
                 {selectedDay ? fmt(t.timesOn, { date: formatDay(selectedDay, lang) }) : t.pickDay}
               </p>
-              <p className="mt-1 font-mono text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{t.duration}</p>
+              <p className="mt-1 font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{t.duration}</p>
               <ul className="mt-4 grid grid-cols-2 gap-2">
                 {times.map((slot) => (
                   <li key={slot}>

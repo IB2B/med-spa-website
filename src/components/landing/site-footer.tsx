@@ -7,9 +7,9 @@ import type { FooterDict } from "@/i18n/dictionaries/footer"
 const ring = "outline-none focus-visible:ring-4 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
 const link = `inline-flex min-h-11 items-center rounded-sm transition-colors hover:text-neutral-950 ${ring}`
 
-// Footer: logo + section links, then Contact / Company / Legal in mono caps, then the © line.
+// Footer: logo + section links, then Contact / Company / Legal in small caps, then the © line.
 // Everything stacks on mobile; every link is at least 44px tall. On other pages (e.g. /book) pass
-// `home` ("/en") so the section links (#faq…) go back to the home page.
+// `home` ("/" or "/en") so the section links (#faq…) go back to the home page.
 export function SiteFooter({ t, home = "" }: { t: FooterDict; home?: string }) {
   const year = new Date().getFullYear()
 
@@ -19,7 +19,7 @@ export function SiteFooter({ t, home = "" }: { t: FooterDict; home?: string }) {
         <div className="flex flex-col gap-4 border-t border-neutral-200 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <Image src="/brand/intelligentb2b-logo-light.png" alt={t.logoAlt} width={896} height={200} className="h-8 w-auto self-start sm:self-auto" />
           <nav aria-label={t.navLabel}>
-            <ul className="flex flex-wrap gap-x-6 font-mono text-xs tracking-wide text-neutral-600 uppercase">
+            <ul className="flex flex-wrap gap-x-6 font-sans text-xs tracking-wide text-neutral-600 uppercase">
               {t.nav.map((item) => (
                 <li key={item.href}>
                   <a href={item.href.startsWith("#") ? `${home}${item.href}` : item.href} className={link}>
@@ -31,7 +31,7 @@ export function SiteFooter({ t, home = "" }: { t: FooterDict; home?: string }) {
           </nav>
         </div>
 
-        <div className="mt-10 grid gap-8 font-mono text-xs leading-relaxed tracking-wide text-neutral-600 uppercase sm:grid-cols-3">
+        <div className="mt-10 grid gap-8 font-sans text-xs leading-relaxed tracking-wide text-neutral-600 uppercase sm:grid-cols-3">
           <div>
             <p className="font-medium text-neutral-950">{t.contact.title}</p>
             <ul className="mt-2">
@@ -72,7 +72,7 @@ export function SiteFooter({ t, home = "" }: { t: FooterDict; home?: string }) {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-2 border-t border-neutral-200 py-6 font-mono text-[0.6875rem] tracking-wide text-neutral-500 uppercase sm:flex-row sm:justify-between">
+        <div className="mt-12 flex flex-col gap-2 border-t border-neutral-200 py-6 font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase sm:flex-row sm:justify-between">
           <p>{fmt(t.rights, { year })}</p>
           <p>{t.tagline}</p>
         </div>

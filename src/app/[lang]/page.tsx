@@ -10,7 +10,7 @@ import { TechnologySection } from "@/components/landing/technology-section";
 import { isLocale } from "@/i18n/config";
 import { getDictionary } from "@/i18n";
 
-// Order: hero → pain points → what you get → technology → testimonials → FAQ + black CTA band
+// Order: hero → testimonials → pain points → what you get → technology → FAQ + black CTA band
 // (#contact) → footer. Every "Book free call" opens /[lang]/book. Hero, "What you get" and testimonials still keep their (English) text in the
 // component; the other sections read from the dictionaries.
 export default async function Home({ params }: PageProps<"/[lang]">) {
@@ -33,10 +33,10 @@ export default async function Home({ params }: PageProps<"/[lang]">) {
     <>
       <main id="main" tabIndex={-1} className="flex-1 bg-white outline-none">
         <AgencyHero lang={lang} />
+        <ClientMessages lang={lang} />
         <PainPoints t={t.painPoints} />
         <OfferSection lang={lang} />
         <TechnologySection t={t.technology} lang={lang} />
-        <ClientMessages lang={lang} />
         <FaqSection t={t.faq} lang={lang} />
         <script
           type="application/ld+json"

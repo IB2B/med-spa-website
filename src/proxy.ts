@@ -1,34 +1,23 @@
 import { NextResponse, type NextRequest } from "next/server"
 
-import { LOCALE_COOKIE, defaultLocale, isLocale, locales, type Locale } from "@/i18n/config"
+import { defaultLocale } from "@/i18n/config"
 
-// Picks a language for addresses without one (/ → /it, /privacy → /it/privacy):
-// 1. the visitor's earlier choice from the language switcher (cookie),
-// 2. otherwise the best match from the browser's Accept-Language header,
-// 3. otherwise English.
-function pickLocale(request: NextRequest): Locale {
-  const saved = request.cookies.get(LOCALE_COOKIE)?.value
-  if (saved && isLocale(saved)) return saved
-
-  const header = request.headers.get("accept-language") ?? ""
-  const wanted = header
-    .split(",")
-    .map((part) => {
-      const [tag, q] = part.trim().split(";q=")
-      return { lang: tag.toLowerCase().split("-")[0], q: q ? Number(q) : 1 }
-    })
-    .sort((a, b) => b.q - a.q)
-  return wanted.find((w) => isLocale(w.lang))?.lang as Locale | undefined ?? defaultLocale
-}
-
+// The site is Italian only, served at the root: / and /book show the /it pages without "/it" in the
+// address. /it/... redirects to the unprefixed address so each page has one URL. Other language
+// prefixes (/en, /fr, /ar) are not published and end up on the 404 page.
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const hasLocale = locales.some((l) => pathname === `/${l}` || pathname.startsWith(`/${l}/`))
-  if (hasLocale) return
+  const prefix = `/${defaultLocale}`
+
+  if (pathname === prefix || pathname.startsWith(`${prefix}/`)) {
+    const url = request.nextUrl.clone()
+    url.pathname = pathname.slice(prefix.length) || "/"
+    return NextResponse.redirect(url, 308)
+  }
 
   const url = request.nextUrl.clone()
-  url.pathname = `/${pickLocale(request)}${pathname === "/" ? "" : pathname}`
-  return NextResponse.redirect(url)
+  url.pathname = `${prefix}${pathname === "/" ? "" : pathname}`
+  return NextResponse.rewrite(url)
 }
 
 export const config = {

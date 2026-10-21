@@ -13,9 +13,9 @@ export type CommonDict = typeof en
 
 const it: CommonDict = {
   meta: {
-    title: "Torch | Per cliniche di medicina estetica",
+    title: "IntelligentB2B | Pazienti prenotati per centri di medicina estetica",
     description:
-      "Ogni paziente che ti scrive diventa un appuntamento in agenda. Torch risponde su WhatsApp in pochi secondi e fissa la consulenza.",
+      "Riempiamo l'agenda del tuo centro di medicina estetica con pazienti pronti a pagare per botox, filler, epilazione laser e rimodellamento corporeo. Richiedi la tua analisi gratuita.",
   },
 }
 

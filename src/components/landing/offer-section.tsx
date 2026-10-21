@@ -3,7 +3,8 @@ import { localizeHref, type Locale } from "@/i18n/config"
 
 // ─── Edit everything here ───────────────────────────────────────────────────────────────────────
 // Anything marked PLACEHOLDER is not final yet: replace it before going live.
-const copy = {
+// One block per language (`en`, `it`); French and Arabic fall back to English.
+const en = {
   eyebrow: "What you get",
   eyebrowEnd: "The offer",
   title: { strong: "What you get", soft: "every month" },
@@ -31,16 +32,51 @@ const copy = {
       tag: "Cost per patient",
     },
   ],
+  cta: "Book free call",
 }
+
+const it: typeof en = {
+  eyebrow: "Cosa ottieni",
+  eyebrowEnd: "L'offerta",
+  title: { strong: "Cosa ottieni", soft: "ogni mese" },
+  subline: "Niente like, niente follower. Pazienti prenotati che puoi contare.",
+  items: [
+    {
+      title: "Consulenze prenotate, non semplici contatti",
+      body: "Portiamo i pazienti direttamente nella tua agenda. La tua reception conferma, non insegue.",
+      tag: "Prenotati, non inseguiti",
+    },
+    {
+      title: "Pazienti pre-qualificati sul budget",
+      body: "Ogni contatto viene qualificato su budget e trattamento prima di arrivare a te.",
+      tag: "Solo clienti seri",
+    },
+    {
+      title: "Pubblicità pensate per i tuoi trattamenti",
+      body: "Campagne per botox, filler, epilazione laser e rimodellamento corporeo. Mai pubblicità generiche di bellezza.",
+      tag: "Pensate per cliniche estetiche", // PLACEHOLDER tag
+    },
+    {
+      // PLACEHOLDER card: taken from the hero's old "What you get" list
+      title: "Un report mensile chiaro",
+      body: "Quanto ti è costato ogni paziente prenotato, in una pagina.",
+      tag: "Costo per paziente",
+    },
+  ],
+  cta: "Prenota una call gratuita",
+}
+
+const copies: Record<Locale, typeof en> = { en, it, fr: en, ar: en }
 // ────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Same look as the testimonials: header row with the accent diamond, black/grey uppercase title,
-// mono uppercase text, light grey cards with an accent number and a result tag bottom right.
+// small uppercase text, light grey cards with an accent number and a result tag bottom right.
 export function OfferSection({ lang }: { lang: Locale }) {
+  const copy = copies[lang]
   return (
     <section id="what-you-get" aria-labelledby="offer-title" className="scroll-mt-6 bg-white py-16 text-neutral-950 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex items-center justify-between border-t border-neutral-200 pt-5 font-mono text-xs tracking-wide text-neutral-600 uppercase">
+        <div className="flex items-center justify-between border-t border-neutral-200 pt-5 font-sans text-xs tracking-wide text-neutral-600 uppercase">
           <span className="flex items-center gap-2">
             <span aria-hidden="true" className="size-2 rotate-45 bg-accent" />
             {copy.eyebrow}
@@ -58,21 +94,21 @@ export function OfferSection({ lang }: { lang: Locale }) {
               {`${copy.title.strong} `}
               <span className="text-neutral-400">{copy.title.soft}</span>
             </h2>
-            <p className="mt-6 max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{copy.subline}</p>
+            <p className="mt-6 max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{copy.subline}</p>
             <div className="mt-8">
-              <CtaPair href={localizeHref(lang, "/book")} />
+              <CtaPair label={copy.cta} href={localizeHref(lang, "/book")} />
             </div>
           </div>
 
           <ol className="grid gap-2 sm:grid-cols-2">
             {copy.items.map((item, i) => (
               <li key={item.title} className="flex min-h-[17rem] flex-col bg-neutral-100 p-6 sm:p-7">
-                <span aria-hidden="true" className="font-mono text-sm font-medium text-accent-text">
+                <span aria-hidden="true" className="font-sans text-sm font-medium text-accent-text">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <h3 className="mt-5 text-xl leading-tight font-medium tracking-tight">{item.title}</h3>
-                <p className="mt-3 font-mono text-xs leading-relaxed text-neutral-700 uppercase">{item.body}</p>
-                <p className="mt-auto self-end pt-6 text-sm font-semibold tracking-tight text-neutral-500">{item.tag}</p>
+                <p className="mt-3 font-sans text-xs leading-relaxed text-neutral-700 uppercase">{item.body}</p>
+                <p className="mt-auto self-end pt-6 font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{item.tag}</p>
               </li>
             ))}
           </ol>

@@ -19,7 +19,7 @@ const ring =
   "outline-none focus-visible:ring-4 focus-visible:ring-accent/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white";
 
 // /[lang]/book: the booking page every "Book free call" button opens. Same look as the landing page
-// (header row, black/grey uppercase title, mono text); the 3-step widget sits on a light grey panel.
+// (header row, black/grey uppercase title, small uppercase text); the 3-step widget sits on a light grey panel.
 export default async function BookPage({ params }: PageProps<"/[lang]/book">) {
   const { lang } = await params;
   if (!isLocale(lang)) notFound();
@@ -42,7 +42,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/book">) {
           </a>
           <a
             href={localizeHref(lang, "/")}
-            className={`inline-flex min-h-11 items-center gap-2 rounded-sm font-mono text-xs tracking-wide text-neutral-600 uppercase transition-colors hover:text-neutral-950 ${ring}`}
+            className={`inline-flex min-h-11 items-center gap-2 rounded-sm font-sans text-xs tracking-wide text-neutral-600 uppercase transition-colors hover:text-neutral-950 ${ring}`}
           >
             <ArrowLeft className="size-3.5 rtl:rotate-180" aria-hidden="true" />
             {page.back}
@@ -64,7 +64,7 @@ export default async function BookPage({ params }: PageProps<"/[lang]/book">) {
                 {`${page.title.strong} `}
                 <span className="text-neutral-400">{page.title.soft}</span>
               </h1>
-              <p className="max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{page.intro}</p>
+              <p className="max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{page.intro}</p>
             </div>
 
             <div className="mt-10 border border-neutral-200 lg:mt-14">

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { ArrowRight } from "lucide-react"
+import { CtaPair } from "@/components/landing/agency-hero"
 import { Keyword } from "@/components/landing/keyword"
 
 import { localizeHref, type Locale } from "@/i18n/config"
@@ -9,7 +10,8 @@ import { localizeHref, type Locale } from "@/i18n/config"
 // ─── Edit everything here ───────────────────────────────────────────────────────────────────────
 // Real messages from clients, word for word in Italian as they wrote them on WhatsApp.
 // `result` is the small tag at the top of each card.
-const copy = {
+// One block per language (`en`, `it`); French and Arabic fall back to English.
+const en = {
   title: { strong: "What", soft: "our clients", end: "say" },
   eyebrow: "Testimonials",
   eyebrowEnd: "Salons & clinics",
@@ -53,6 +55,31 @@ const copy = {
     note: "Includes a free analysis of your clinic. First 10 clinics only.",
   },
 }
+
+const itResults = [
+  "15 richieste in 5 giorni",
+  "7 nuove clienti in una settimana",
+  "€1.850 al mese, ricorrenti",
+  "Primo contatto chiuso a €1.150",
+  "12 appuntamenti pagati in una settimana",
+]
+
+const it: typeof en = {
+  title: { strong: "Cosa dicono", soft: "i nostri clienti", end: "" },
+  eyebrow: "Testimonianze",
+  eyebrowEnd: "Centri estetici e cliniche",
+  intro: "Messaggi WhatsApp reali dei centri estetici e delle cliniche per cui gestiamo le pubblicità, parola per parola.",
+  next: "Testimonianza successiva",
+  // Same messages (already in Italian); only the tags change.
+  testimonials: en.testimonials.map((t, i) => ({ ...t, result: itResults[i] ?? t.result })),
+  cta: {
+    label: "Prenota una call gratuita",
+    href: "/book",
+    note: "Include un'analisi gratuita della tua clinica. Solo per le prime 10 cliniche.",
+  },
+}
+
+const copies: Record<Locale, typeof en> = { en, it, fr: en, ar: en }
 // ────────────────────────────────────────────────────────────────────────────────────────────────
 
 // Gradient "orb" avatar generated from the name: same name, same colours, no photo needed.
@@ -67,10 +94,11 @@ function orb(name: string) {
 
 const ring = "outline-none focus-visible:ring-4 focus-visible:ring-accent/45 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
 
-// Styled after the user's reference: white band, uppercase title, mono text, accent accents.
+// Styled after the user's reference: white band, uppercase title, small uppercase text, accent accents.
 // Title, intro and button on the start side; quote cards on the end side in a scroll-snap row that
 // moves on by one card every 5s (paused on hover/focus, off with reduced motion). The accent button steps it.
 export function ClientMessages({ lang }: { lang: Locale }) {
+  const copy = copies[lang]
   const track = useRef<HTMLUListElement>(null)
   const [paused, setPaused] = useState(false)
 
@@ -96,7 +124,7 @@ export function ClientMessages({ lang }: { lang: Locale }) {
   return (
     <section id="results" aria-labelledby="client-messages-title" className="scroll-mt-6 bg-white py-16 text-neutral-950 lg:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex items-center justify-between border-t border-neutral-200 pt-5 font-mono text-xs tracking-wide text-neutral-600 uppercase">
+        <div className="flex items-center justify-between border-t border-neutral-200 pt-5 font-sans text-xs tracking-wide text-neutral-600 uppercase">
           <span className="flex items-center gap-2">
             <span aria-hidden="true" className="size-2 rotate-45 bg-accent" />
             {copy.eyebrow}
@@ -113,26 +141,21 @@ export function ClientMessages({ lang }: { lang: Locale }) {
             >
               {`${copy.title.strong} `}
               <Keyword>{copy.title.soft}</Keyword>
-              {` ${copy.title.end}`}
+              {copy.title.end ? ` ${copy.title.end}` : null}
             </h2>
-            <p className="mt-6 max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{copy.intro}</p>
+            <p className="mt-6 max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{copy.intro}</p>
             <div className="mt-8 flex items-center gap-1.5">
-              <a
-                href={localizeHref(lang, copy.cta.href)}
-                className={`inline-flex min-h-11 items-center rounded-none bg-neutral-950 px-5 font-mono text-xs font-medium tracking-wide uppercase text-white transition-colors hover:bg-neutral-800 ${ring}`}
-              >
-                {copy.cta.label}
-              </a>
+              <CtaPair label={copy.cta.label} href={localizeHref(lang, copy.cta.href)} />
               <button
                 type="button"
                 onClick={() => step(1)}
                 aria-label={copy.next}
-                className={`grid size-11 place-items-center rounded-none bg-accent text-white transition-colors hover:bg-accent-hover ${ring}`}
+                className={`grid size-11 place-items-center rounded-full bg-accent text-white transition-colors hover:bg-accent-hover ${ring}`}
               >
                 <ArrowRight className="size-4 rtl:rotate-180" />
               </button>
             </div>
-            <p className="mt-3 font-mono text-[0.6875rem] leading-relaxed text-neutral-500 uppercase">{copy.cta.note}</p>
+            <p className="mt-3 font-sans text-[0.6875rem] leading-relaxed text-neutral-500 uppercase">{copy.cta.note}</p>
           </div>
 
           <ul
@@ -151,17 +174,17 @@ export function ClientMessages({ lang }: { lang: Locale }) {
                 <span aria-hidden="true" className="text-6xl leading-[0.75] font-black text-accent-text">
                   &rdquo;
                 </span>
-                <blockquote lang="it" className="mt-5 font-mono text-xs leading-relaxed text-neutral-800 uppercase">
+                <blockquote lang="it" className="mt-5 font-sans text-xs leading-relaxed text-neutral-800 uppercase">
                   {t.quote}
                 </blockquote>
                 <div className="mt-8 flex items-center gap-3">
                   <span aria-hidden="true" className="size-10 shrink-0 rounded-full shadow-sm" style={orb(t.name)} />
                   <div>
                     <p className="text-[0.9375rem] font-medium">{t.name}</p>
-                    <p className="font-mono text-[0.6875rem] text-neutral-500">{t.clinic}</p>
+                    <p className="font-sans text-[0.6875rem] text-neutral-500">{t.clinic}</p>
                   </div>
                 </div>
-                <p className="mt-auto self-end pt-6 text-sm font-semibold tracking-tight text-neutral-500">{t.result}</p>
+                <p className="mt-auto self-end pt-6 font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{t.result}</p>
               </li>
             ))}
           </ul>

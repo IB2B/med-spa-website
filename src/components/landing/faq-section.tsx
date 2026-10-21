@@ -35,7 +35,7 @@ export function FaqSection({ t, lang }: { t: FaqDict; lang: Locale }) {
                 {`${t.title.strong} `}
                 <span className="text-neutral-400">{t.title.soft}</span>
               </h2>
-              <p className="mt-6 max-w-sm font-mono text-xs leading-relaxed text-neutral-700 uppercase">{t.note}</p>
+              <p className="mt-6 max-w-sm font-sans text-xs leading-relaxed text-neutral-700 uppercase">{t.note}</p>
               <div className="mt-8">
                 <CtaPair label={t.cta.label} href={book} />
               </div>
@@ -47,7 +47,7 @@ export function FaqSection({ t, lang }: { t: FaqDict; lang: Locale }) {
                 const buttonId = `${baseId}-q${i}`
                 const panelId = `${baseId}-a${i}`
                 return (
-                  <li key={item.q} className="bg-neutral-100">
+                  <li key={item.q} className="rounded-xl bg-neutral-100">
                     <h3>
                       <button
                         id={buttonId}
@@ -55,12 +55,12 @@ export function FaqSection({ t, lang }: { t: FaqDict; lang: Locale }) {
                         aria-expanded={isOpen}
                         aria-controls={panelId}
                         onClick={() => setOpen(isOpen ? null : i)}
-                        className={`flex min-h-16 w-full items-center justify-between gap-6 px-5 py-4 text-start text-[1.0625rem] leading-snug font-medium tracking-tight sm:px-7 ${ring}`}
+                        className={`flex min-h-16 w-full items-center justify-between gap-6 rounded-xl px-5 py-4 text-start text-[1.0625rem] leading-snug font-medium tracking-tight sm:px-7 ${ring}`}
                       >
                         {item.q}
                         <span
                           aria-hidden="true"
-                          className={`grid size-7 shrink-0 place-items-center transition-[transform,background-color,color] duration-300 motion-reduce:transition-none ${
+                          className={`grid size-7 shrink-0 place-items-center rounded-full transition-[transform,background-color,color] duration-300 motion-reduce:transition-none ${
                             isOpen ? "rotate-45 bg-accent text-white" : "text-accent-text"
                           }`}
                         >
@@ -78,7 +78,7 @@ export function FaqSection({ t, lang }: { t: FaqDict; lang: Locale }) {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <p className="px-5 pb-6 font-mono text-xs leading-relaxed text-neutral-700 uppercase sm:px-7">{item.a}</p>
+                        <p className="px-5 pb-6 font-sans text-xs leading-relaxed text-neutral-700 uppercase sm:px-7">{item.a}</p>
                       </div>
                     </div>
                   </li>
@@ -112,7 +112,7 @@ export function FaqSection({ t, lang }: { t: FaqDict; lang: Locale }) {
                 {t.band.steps.map((step, i) => (
                   <li key={step} className="flex gap-4 border-b border-neutral-800 py-4">
                     {/* Soft tint, not --accent: plum on black is under 4.5:1 for small text. */}
-                    <span aria-hidden="true" className="font-mono text-sm text-accent-soft">
+                    <span aria-hidden="true" className="font-sans text-sm text-accent-soft">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span className="text-[0.9375rem] leading-snug text-neutral-300">{step}</span>
@@ -122,7 +122,7 @@ export function FaqSection({ t, lang }: { t: FaqDict; lang: Locale }) {
 
               <div className="mt-8">
                 <CtaPair tone="light" label={t.cta.label} href={book} />
-                <p className="mt-3 font-mono text-[0.6875rem] tracking-wide text-neutral-400 uppercase">{t.band.note}</p>
+                <p className="mt-3 font-sans text-[0.6875rem] tracking-wide text-neutral-400 uppercase">{t.band.note}</p>
               </div>
             </div>
 
@@ -153,19 +153,19 @@ function CalendarFilling({ labels, lang }: { labels: FaqDict["band"]["calendar"]
     <div aria-hidden="true" className="border border-neutral-800 bg-neutral-900 p-5 sm:p-7">
       <div className="flex items-baseline justify-between gap-4">
         <p className="text-lg font-medium tracking-tight">{labels.title}</p>
-        <p className="font-mono text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{labels.tag}</p>
+        <p className="font-sans text-[0.6875rem] tracking-wide text-neutral-500 uppercase">{labels.tag}</p>
       </div>
 
       <div className="mt-6 grid grid-cols-[auto_repeat(5,minmax(0,1fr))] gap-1.5 sm:gap-2">
         <span />
         {days.map((d) => (
-          <span key={d} className="pb-1 text-center font-mono text-[0.625rem] tracking-wide text-neutral-500 uppercase">
+          <span key={d} className="pb-1 text-center font-sans text-[0.625rem] tracking-wide text-neutral-500 uppercase">
             {d}
           </span>
         ))}
         {HOURS.map((h, row) => (
           <div key={h} className="contents">
-            <span className="pe-2 text-end font-mono text-[0.625rem] leading-8 text-neutral-500 tabular-nums sm:leading-9">
+            <span className="pe-2 text-end font-sans text-[0.625rem] leading-8 text-neutral-500 tabular-nums sm:leading-9">
               {time.format(new Date(Date.UTC(2024, 0, 1, h)))}
             </span>
             {days.map((d, day) => {
@@ -186,7 +186,7 @@ function CalendarFilling({ labels, lang }: { labels: FaqDict["band"]["calendar"]
         ))}
       </div>
 
-      <p className="mt-5 flex items-center gap-2 font-mono text-[0.6875rem] tracking-wide text-neutral-400 uppercase">
+      <p className="mt-5 flex items-center gap-2 font-sans text-[0.6875rem] tracking-wide text-neutral-400 uppercase">
         <span className="size-2.5 rounded-sm bg-accent" />
         {labels.legend}
       </p>
